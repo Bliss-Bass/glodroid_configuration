@@ -12,7 +12,7 @@ service modemmanager /vendor/bin/ModemManager --debug
     user root
     group root
 
-on boot
+on property:sys.boot_completed=1
     mkdir /mnt/var 0755 system system
     mkdir /mnt/var/run 0755 system system
     mkdir /mnt/var/run/dbus 0755 system system
