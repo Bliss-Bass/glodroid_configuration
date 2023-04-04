@@ -148,13 +148,7 @@ FUNC_BEGIN(bootcmd_block)
  abootimg load mmc \$mmc_bootdev init_boot   \${slot_name}
  abootimg load mmc \$mmc_bootdev vendor_boot \${slot_name}
 
- if test STRESC(\$androidrecovery) = STRESC("true");
- then
-  /* Always unlock device for fastbootd and recovery modes, otherwise fastbootd flashing won't work. TODO: Support conditional lock/unlock */
-  EXTENV(bootargs, " androidboot.verifiedbootstate=orange ");
- else
-  run bootcmd_avb;
- fi;
+ EXTENV(bootargs, " androidboot.verifiedbootstate=orange ");
 FUNC_END()
 
 FUNC_BEGIN(rename_and_expand_userdata_placeholder)
