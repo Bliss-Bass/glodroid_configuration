@@ -1,0 +1,13 @@
+<Included>
+   <Encoders>
+       <MediaCodec name="c2.v4l2.avc.encoder" type="video/avc">
+           <Limit name="size" min="32x32" max="4096x4096" />
+           <Limit name="alignment" value="2x2" />
+           <Limit name="block-size" value="32x32" />
+           <Limit name="blocks-per-second" range="1-983040" />
+           <Limit name="bitrate" range="1-40000000" />
+           <Limit name="concurrent-instances" max="8" />
+           <Limit name="performance-point-1280x720" range="30-30" />
+       </MediaCodec>
+   </Encoders>
+</Included>
