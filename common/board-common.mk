@@ -1,5 +1,7 @@
 CBC_LOCAL_PATH := $(patsubst $(CURDIR)/%,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
+RELAX_USES_LIBRARY_CHECK := true
+
 # Lineage OS support
 ifeq ($(wildcard lineage),lineage)
 TARGET_KERNEL_CONFIG := defconfig
