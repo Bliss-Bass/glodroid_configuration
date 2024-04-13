@@ -90,6 +90,9 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := $(shell echo $$(( 64 * 1024 * 1024 )))
 BOARD_DTBOIMG_PARTITION_SIZE := $(shell echo $$(( 512 * 1024 )))
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := $(shell echo $$(( 32 * 1024 * 1024 )))
 
+# Product image 3gb
+# BOARD_PRODUCTIMAGE_PARTITION_SIZE := $(shell echo $$(( 3 * 1024 * 1024 * 1024 )))
+
 # DKLM partition
 BOARD_USES_VENDOR_DLKMIMAGE := true
 BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4

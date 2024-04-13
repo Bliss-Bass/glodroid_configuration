@@ -18,6 +18,8 @@ $(call inherit-product, $(LOCAL_PATH)/base/device.mk)
 
 $(call inherit-product, $(LOCAL_PATH)/other-hals/device.mk)
 
+$(call inherit-product, vendor/bass/branding.mk)
+
 ifeq ($(GD_NO_DEFAULT_BLUETOOTH),)
     $(call inherit-product, $(LOCAL_PATH)/bluetooth/device.mk)
 endif
