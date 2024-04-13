@@ -43,3 +43,8 @@ endif
 ifeq ($(GD_NO_DEFAULT_WIFI),)
 include $(CBC_LOCAL_PATH)/wifi/board.mk
 endif
+
+ifeq ($(BOARD_IS_GO_BUILD), true)
+# SVELTE
+MALLOC_SVELTE := true
+endif
