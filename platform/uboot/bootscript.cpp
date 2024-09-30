@@ -133,6 +133,12 @@ FUNC_BEGIN(bootcmd_start)
 #ifdef POSTPROCESS_FDT
  POSTPROCESS_FDT()
 #endif
+ menu bootmode
+    "Lockdown Mode"      setenv bliss_bootmode lockdown
+    "Admin Mode"         setenv bliss_bootmode admin
+ endmenu
+
+ EXTENV(bootargs, " androidboot.bliss.bootmode=\${bliss_bootmode}")
  /* START KERNEL */
  bootm \$abootimg_boot_ptr
  /* Should never get here */
