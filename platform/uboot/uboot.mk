@@ -205,12 +205,13 @@ BOOT_FILES := \
     $(DTBS_DIR)/broadcom/bcm2711-rpi-400.dtb \
     $(DTBS_DIR)/broadcom/bcm2711-rpi-cm4.dtb \
 
-$(PRODUCT_OUT)/bootloader-sd.img: $(UBOOT_BINARY) $(ATF_BINARY) $(RPI_CONFIG) $(KERNEL_TARGET)
+$(PRODUCT_OUT)/bootloader-sd.img: $(UBOOT_BINARY) $(ATF_BINARY) $(RPI_CONFIG) $(RPI_CMDLINE) $(KERNEL_TARGET)
 	dd if=/dev/null of=$@ bs=1 count=1 seek=$$(( 128 * 1024 * 1024 - 256 * 512 ))
 	/sbin/mkfs.vfat -F 32 -n boot $@
 	/usr/bin/mcopy -i $@ $(UBOOT_BINARY) ::$(notdir $(UBOOT_BINARY))
 	/usr/bin/mcopy -i $@ $(ATF_BINARY) ::$(notdir $(ATF_BINARY))
 	/usr/bin/mcopy -i $@ $(RPI_CONFIG) ::$(notdir $(RPI_CONFIG))
+	/usr/bin/mcopy -i $@ $(RPI_CMDLINE) ::$(notdir $(RPI_CMDLINE))
 	/usr/bin/mcopy -i $@ $(BOOT_FILES) ::
 	/usr/bin/mmd -i $@ ::overlays
 	/usr/bin/mcopy -i $@ $(DTB_OVLS_DIR)/* ::overlays/
