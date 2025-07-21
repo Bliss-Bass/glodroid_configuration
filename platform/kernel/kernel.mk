@@ -66,12 +66,29 @@ ANDROID_DTS_OVERLAY	?= $(LOCAL_PATH)/empty.dts
 
 DTB_OUTPUT		:= $(PRODUCT_OUT)/dtb.img
 
-$(TARGET_VENDOR_MODULES)/modules.dep: $(KERNEL_TARGET)
+ifeq ($(TARGET_EXTRA_KERNEL_MODULES),)
+TARGET_EXTRA_KERNEL_MODULES :=
+endif
+
+ALL_EXTRA_MODULES := $(patsubst %,$(TARGET_OUT_INTERMEDIATES)/kmodule/%,$(TARGET_EXTRA_KERNEL_MODULES))
+
+$(ALL_EXTRA_MODULES): $(KERNEL_TARGET) | $(ACP)
+	@echo Building additional kernel module $*
+	$(hide) mkdir -p $(@D) && $(ACP) -fr $(EXTRA_KERNEL_MODULE_PATH_$*) $(@D)
+	$(MAKE) -C $(KERNEL_OUT) M=$(abspath $@) modules || ( rm -rf $@ && exit 1 )
+
+
+$(TARGET_VENDOR_MODULES)/modules.dep: $(KERNEL_TARGET) $(ALL_EXTRA_MODULES)
 	rm -rf $(TARGET_VENDOR_MODULES)/kernel
 	rm -f $(TARGET_VENDOR_MODULES)/modules.*
 	mkdir -p $(TARGET_VENDOR_MODULES)/kernel
 	cp -r $(KERNEL_OUT)/install/modules/lib/modules/GloDroid/kernel/* $(TARGET_VENDOR_MODULES)/kernel/
 	cp -r $(KERNEL_OUT)/install/modules/lib/modules/GloDroid/modules.* $(TARGET_VENDOR_MODULES)/
+	+ $(hide) for kmod in $(TARGET_EXTRA_KERNEL_MODULES) ; do \
+		echo Installing additional kernel module $${kmod} ; \
+		$(MAKE) -C $(KERNEL_OUT) INSTALL_MOD_PATH=$(abspath $(TARGET_OUT)) M=$(abspath $(TARGET_OUT_INTERMEDIATES))/kmodule/$${kmod} modules_install ; \
+	done
+	$(hide) rm -f $(TARGET_VENDOR_MODULES)/kernel/*/{build,source}
 	touch $@
 
 $(PRODUCT_OUT)/kernel: $(KERNEL_TARGET) $(TARGET_VENDOR_MODULES)/modules.dep
