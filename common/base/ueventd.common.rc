@@ -20,3 +20,6 @@ subsystem usbmisc
 
 # Storage: for factory reset protection feature
 /dev/block/by-name/frp                                 0660    system       system
+
+# USB ril
+/dev/ttyUSB*                                           0660    radio       radio
