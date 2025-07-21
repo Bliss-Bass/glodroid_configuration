@@ -82,8 +82,12 @@ ifeq ($(GD_NO_DEFAULT_CAMERA),)
     $(call inherit-product, $(LOCAL_PATH)/camera/device.mk)
 endif
 
-ifeq ($(GD_NO_DEFAULT_MODEM),)
+ifneq ($(GD_NO_DEFAULT_MODEM), true)
     $(call inherit-product, $(LOCAL_PATH)/modem/device.mk)
+endif
+
+ifeq ($(GD_EG25_MODEM), true)
+    $(call inherit-product, vendor/Quectel_RIL/QuectelWB.mk)
 endif
 
 ifeq ($(GD_NO_DEFAULT_AUDIO),)
