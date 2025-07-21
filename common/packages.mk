@@ -117,4 +117,15 @@ PRODUCT_PACKAGES += \
     Seedvault \
     BasicDreams \
     
+# # Quectel HAL
+# PRODUCT_PACKAGES += \
+#     libquectel-ril \
+#     ip-up \
+#     ip-down \
+#     chat
+
+# APNs
+PRODUCT_PACKAGES += \
+    apns-conf.xml \
+    apns-conf-schema
 
