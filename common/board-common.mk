@@ -32,7 +32,7 @@ ifeq ($(GD_NO_DEFAULT_CAMERA),)
 include $(CBC_LOCAL_PATH)/camera/board.mk
 endif
 
-ifeq ($(GD_NO_DEFAULT_MODEM),)
+ifneq ($(GD_NO_DEFAULT_MODEM), true)
 include $(CBC_LOCAL_PATH)/modem/board.mk
 endif
 
